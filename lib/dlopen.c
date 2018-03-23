@@ -222,6 +222,7 @@ int _sasl_locate_entry(void *library, const char *entryname,
 
     return SASL_OK;
 #else
+    (void) (library && entryname && entry_point);
     return SASL_FAIL;
 #endif /* DO_DLOPEN */
 }
@@ -388,6 +389,7 @@ int _sasl_get_plugin(const char *file,
     *libraryptr = library;
     return SASL_OK;
 #else
+    (void) (file && verifyfile_cb && libraryptr);
     return SASL_FAIL;
 #endif /* DO_DLOPEN */
 }
@@ -397,9 +399,9 @@ int _sasl_load_plugins(const add_plugin_list_t *entrypoints,
 		       const sasl_callback_t *getpath_cb,
 		       const sasl_callback_t *verifyfile_cb)
 {
-    int result;
     const add_plugin_list_t *cur_ep;
 #ifdef DO_DLOPEN
+    int result;
     char str[PATH_MAX], tmp[PATH_MAX+2], prefix[PATH_MAX+2];
 				/* 1 for '/' 1 for trailing '\0' */
     char c;
@@ -448,7 +450,7 @@ int _sasl_load_plugins(const add_plugin_list_t *entrypoints,
 	}
 	for (p=_sasl_static_plugins; p->type; p++) {
 	    if(type == p->type)
-	    	result = add_plugin(p->name, p->plug);
+		(void) add_plugin(p->name, p->plug);
 	}
     }
 #endif /* !PIC */

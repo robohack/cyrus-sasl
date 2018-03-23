@@ -213,6 +213,7 @@ krbtf_name (
 
     return 0;
 #else /* WANT_KRBTF */
+    (void) (tfname && len);
 	syslog(LOG_ERR, "krbtf_name: not compiled!");
 	return -1;
 #endif /* WANT_KRBTF */
