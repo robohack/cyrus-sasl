@@ -214,12 +214,16 @@ doc/html/.sphinx-build.stamp: $(GENERATED_RSTS) docsrc/.sphinx-build.stamp
 else
 clean-docsrc:
 
+# xxx should we use man/legacy/Makefile???
+
 man/.sphinx-build.stamp:
 	@$(MKDIR_P) $(@D)
 	$(AM_V_GEN)touch $@
-	@echo "warning: missing documentation dependencies. man pages will be empty" 1>&2
+	@echo "warning: missing documentation dependencies. man pages will be legacy copies" 1>&2
+	cp $(top_srcdir)/man/legacy/*.[1358] man/
 
 clean-man:
+	@$(RM) man/*.[1358]
 
 doc/html/.sphinx-build.stamp:
 	@echo "error: missing documentation dependencies. cannot build html documentation" 1>&2

@@ -50,9 +50,9 @@ AM_CPPFLAGS=-DLIBSASL_EXPORTS=1 -I$(top_srcdir)/include -I$(top_srcdir)/plugins 
 
 PLUGIN_COMMON_OBJS = $(top_builddir)/common/libplugin_common.la
 
+lib_LIBRARIES = @SASL_STATIC_LIBS@
 EXTRA_DIST = windlopen.c dlopen.c staticopen.h NTMakefile
 EXTRA_LIBRARIES = libsasl2.a
-noinst_LIBRARIES = @SASL_STATIC_LIBS@
 libsasl2_a_SOURCES=
 
 BUILT_SOURCES = $(SASL_STATIC_SRCS)
@@ -119,5 +119,5 @@ libsasl2.a: libsasl2.la $(SASL_STATIC_OBJS)
 $(SASL_STATIC_SRCS): linksrcs
 
 linksrcs:
-	-ln -s $(SASL_STATIC_SRCS) .
+	-ln -fs $(SASL_STATIC_SRCS) .
 

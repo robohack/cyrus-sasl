@@ -130,6 +130,9 @@ else
 	SASL_STATIC_LIBS=
 fi
 
+# this is incredibly stupid to try in the first place,
+# and in the second place it is impossible on any sane platform!
+#
 AC_ARG_ENABLE(staticdlopen, [  --enable-staticdlopen   try dynamic plugins when we are a static libsasl [[no]] ],
                 enable_staticdlopen=$enableval,
                 enable_staticdlopen=no)
@@ -1250,6 +1253,7 @@ AC_SUBST(SASL_UTIL_HEADERS_EXTRA)
 
 dnl check for getsubopt
 sasl_cv_getsubopt=no
+GETSUBOPT=""
 AC_CHECK_FUNC(getsubopt, [AC_DEFINE(HAVE_GETSUBOPT,[],
 	[do we have getsubopt()?])], [sasl_cv_getsubopt=yes])
 if test $sasl_cv_getsubopt = yes; then
@@ -1262,9 +1266,11 @@ dnl Check for snprintf
 sasl_cv_snprintf=no
 SNPRINTFOBJS=""
 LTSNPRINTFOBJS=""
-AC_CHECK_FUNC(snprintf, [AC_DEFINE(HAVE_SNPRINTF,[],[Does the system have snprintf()?])], [sasl_cv_snprintf=yes])
-AC_CHECK_FUNC(vsnprintf, [AC_DEFINE(HAVE_VSNPRINTF,[],[Does the system have vsnprintf()?])], [sasl_cv_snprintf=yes])
-if test $sasl_cv_snprintf = no; then
+AC_CHECK_FUNC(snprintf, [AC_DEFINE(HAVE_SNPRINTF,[],
+	[Does the system have snprintf()?])], [sasl_cv_snprintf=yes])
+AC_CHECK_FUNC(vsnprintf, [AC_DEFINE(HAVE_VSNPRINTF,[],
+	[Does the system have vsnprintf()?])], [sasl_cv_snprintf=yes])
+if test $sasl_cv_snprintf = yes; then
        AC_LIBOBJ(snprintf)
        SNPRINTFOBJS="snprintf.o"
        LTSNPRINTFOBJS="snprintf.lo"

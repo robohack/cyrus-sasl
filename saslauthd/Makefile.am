@@ -2,6 +2,9 @@ AUTOMAKE_OPTIONS = 1.7
 sbin_PROGRAMS	= saslauthd testsaslauthd
 EXTRA_PROGRAMS  = saslcache
 
+# XXX note the mix of legacy and modern macros
+man8_MANS = saslauthd.mdoc testsaslauthd.8
+
 LTLIBOBJS = @LTLIBOBJS@
 LTLIBOBJS_FULL = $(addprefix ${top_srcdir}/lib/,${LTLIBOBJS})
 CRYPTO_COMPAT_OBJS = $(top_builddir)/common/libcrypto_compat.la

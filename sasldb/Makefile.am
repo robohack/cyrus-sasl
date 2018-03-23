@@ -50,7 +50,8 @@ extra_common_sources = db_none.c db_lmdb.c db_ndbm.c db_gdbm.c db_berkeley.c
 
 EXTRA_DIST = NTMakefile
 
-noinst_LTLIBRARIES = libsasldb.la
+lib_LTLIBRARIES = libsasldb.la
+
 
 libsasldb_la_SOURCES = allockey.c sasldb.h
 EXTRA_libsasldb_la_SOURCES = $(extra_common_sources)
